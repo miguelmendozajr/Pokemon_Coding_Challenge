@@ -1,13 +1,32 @@
+/* Hide scrollbar Chrome, Safari and Opera */
+* {
+  -ms-overflow-style: none;
+}
+
+/* Hide scrollbar IE and Edge */
+*::-webkit-scrollbar {
+  display: none;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: "Poppins";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: "Poppins";
+}
+
+.tutorial-mask {
+  color: #0000004f;
+}
+
+.custom-header-menu .ant-menu-item-selected {
+  background-color: #00aaff !important; /* Header's background color */
+}
+
+.custom-header-menu .ant-menu-item-selected a {
+  color: #fff !important; /* Text color */
 }
