@@ -66,3 +66,49 @@ Refactoring and expanding the PokéApp posed unique challenges:
 ---
 
 For applicants: This project provides a foundation to demonstrate your skills in React and other associated technologies. Embrace the challenges, implement the advanced goals, and showcase your expertise!
+
+
+## Project Initialization:
+
+To get started with PokéApp, follow these steps:
+
+### 1. **Clone the Repository**:
+## Project Initialization:
+
+To get started with PokéApp, follow these steps:
+
+### 1. **Clone the Repository**:
+
+```bash
+git clone [repository-url]
+```
+Replace `[repository-url]` with the actual URL of your repository.
+
+### 2. **Navigate to the Project Directory**:
+
+```bash
+cd PokéApp
+```
+
+### 3. **Install Dependencies**:
+Make sure you have [Node.js](https://nodejs.org/) and [npm](https://www.npmjs.com/) installed. Run the following command to install the required packages:
+
+```bash
+npm install
+```
+
+### 4. **Start the Development Server**:
+After installing the dependencies, start the local development server with:
+
+```bash
+npm start
+```
+This command will start the server and open the application in your default browser. By default, it should run on `http://localhost:3000/`, unless you've configured it differently.
+
+### 5. **Build for Production** (Optional):
+If you want to generate a production-ready build, execute:
+
+```bash
+npm run build
+```
+This will create an optimized version of the app in the `build` directory.
