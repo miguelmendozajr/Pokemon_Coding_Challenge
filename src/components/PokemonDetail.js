@@ -20,13 +20,12 @@ class PokemonDetail extends Component {
 
   render() {
     const { pokemon } = this.state;
-
     if (!pokemon) {
       return <div>Loading...</div>;
     }
 
     return (
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '75vh' }}>
         <Card 
           style={{ width: 300 }}
           cover={<img alt={pokemon.name} src={pokemon.sprites?.front_default} />}
