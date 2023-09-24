@@ -1,50 +1,46 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { fetchData } from '../utils/api';
 import { sortData, filterData } from '../utils/helpers';
 import Filter from './Filter';
 import { List, Card } from 'antd';
 import { Link } from 'react-router-dom';
 
-class PokemonList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      pokemon: [],
-      filter: '',
-      sort: false,
-    };
-  }
+function PokemonList() {
+  const [pokemon, setPokemon] = useState([]);
+  const [filter, setFilter] = useState('');
+  const [sort, setSort] = useState(false);
 
-  componentDidMount() {
+  useEffect(() => {
     fetchData('/pokemon')
-      .then(data => {
-        this.setState({ pokemon: data.results })})
-      .catch(error => console.error(error));
-  }
+      .then((data) => {
+        setPokemon(data.results);
+      })
+      .catch((error) => console.error(error));
+  }, []);
 
-  handleFilterChange = (filter) => {
-    this.setState({ filter });
-  }
+  const handleFilterChange = (filter) => {
+    setFilter(filter);
+  };
 
-  handleSortChange = () => {
-    this.setState((prevState) => ({ sort: !prevState.sort }));
-  }
+  const handleSortChange = () => {
+    setSort((prevSort) => !prevSort);
+  };
 
- render() {
-  const { pokemon, filter, sort } = this.state;
   const filteredPokemon = filterData(pokemon, filter);
   const sortedPokemon = sortData(filteredPokemon, sort);
 
   return (
     <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '20px' }}>
-      <Filter onFilterChange={this.handleFilterChange} onSortChange={this.handleSortChange} />
+      <Filter onFilterChange={handleFilterChange} onSortChange={handleSortChange} />
       <List
         style={{ background: '#f5f5f5', borderRadius: '10px', padding: '20px' }}
         grid={{ gutter: 16, column: 4 }}
         dataSource={sortedPokemon}
-        renderItem={poke => (
+        renderItem={(poke) => (
           <List.Item>
-            <Link to={`/pokemon/${poke.url.split('/')[poke.url.split('/').length - 2]}`}>
+            <Link
+              to={`/pokemon/${poke.url.split('/')[poke.url.split('/').length - 2]}`}
+            >
               <Card
                 hoverable
                 style={{ borderRadius: '10px', transition: 'all 0.3s ease' }}
@@ -59,7 +55,6 @@ class PokemonList extends Component {
       />
     </div>
   );
-}
 }
 
 export default PokemonList;

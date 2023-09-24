@@ -1,49 +1,39 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { fetchData } from '../utils/api';
 import { Card } from 'antd';
 
+function PokemonDetail({ match }) {
+  const [pokemon, setPokemon] = useState(null);
 
-class PokemonDetail extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      pokemon: null,
-    };
-  }
-
-  componentDidMount() {
-    const { match } = this.props;
+  useEffect(() => {
     fetchData(`/pokemon/${match.params.id}`)
-      .then(data => this.setState({ pokemon: data }))
-      .catch(error => console.error(error));
+      .then((data) => setPokemon(data))
+      .catch((error) => console.error(error));
+  }, []);
+
+  if (!pokemon) {
+    return <div>Loading...</div>;
   }
 
-  render() {
-    const { pokemon } = this.state;
-    if (!pokemon) {
-      return <div>Loading...</div>;
-    }
-
-    return (
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '75vh' }}>
-        <Card 
-          style={{ width: 300 }}
-          cover={<img alt={pokemon.name} src={pokemon.sprites?.front_default} />}
-        >
-          <Card.Meta 
-            title={pokemon.name} 
-            description={
-              <>
-                <p>Height: {pokemon.height}</p>
-                <p>Weight: {pokemon.weight}</p>
-                <p>Type: {pokemon.types.map(type => type.type.name).join(', ')}</p>
-              </>
-            }
-          />
-        </Card>
-      </div>
-    );
-  }
+  return (
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '75vh' }}>
+      <Card
+        style={{ width: 300 }}
+        cover={<img alt={pokemon.name} src={pokemon.sprites?.front_default} />}
+      >
+        <Card.Meta
+          title={pokemon.name}
+          description={
+            <>
+              <p>Height: {pokemon.height}</p>
+              <p>Weight: {pokemon.weight}</p>
+              <p>Type: {pokemon.types.map((type) => type.type.name).join(', ')}</p>
+            </>
+          }
+        />
+      </Card>
+    </div>
+  );
 }
 
 export default PokemonDetail;
