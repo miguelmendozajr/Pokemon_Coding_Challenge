@@ -11,7 +11,7 @@ class PokemonList extends Component {
     this.state = {
       pokemon: [],
       filter: '',
-      sort: 'name',
+      sort: false,
     };
   }
 
@@ -26,8 +26,8 @@ class PokemonList extends Component {
     this.setState({ filter });
   }
 
-  handleSortChange = (sort) => {
-    this.setState({ sort });
+  handleSortChange = () => {
+    this.setState((prevState) => ({ sort: !prevState.sort }));
   }
 
  render() {
