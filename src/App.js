@@ -14,7 +14,7 @@ function App() {
       <Layout style={{ minHeight: '100vh' }}>
         <Header style={{ background: '#00aaff', padding: 0 }}>
           <div style={{ display: 'flex', alignItems: 'center', maxWidth: '1200px', margin: '0 auto', padding: '0 20px' }}>
-            <Title style={{ color: '#fff', margin: 0 }} level={2}><Link to="/" style={{ color: 'inherit', textDecoration: 'none' }}>PokéApp</Link></Title>
+            <Title style={{ color: '#fff', margin: 12 }} level={2}><Link to="/" style={{ color: 'inherit', textDecoration: 'none' }}>PokéApp</Link></Title>
             <Menu 
               className="custom-header-menu"
               theme="dark" 
@@ -22,9 +22,7 @@ function App() {
               defaultSelectedKeys={['1']}
               style={{ background: 'transparent', color: '#fff' }}
               >
-              <Menu.Item key="1" style={{ color: '#fff' }}>
-                <Link to="/">Home</Link>
-              </Menu.Item>
+   
             </Menu>
           </div>
         </Header>
