@@ -1,21 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { fetchData } from '../utils/api';
 import { Card } from 'antd';
+import useFetch from 'hooks/useFetch';
 
 function PokemonDetail({ match }) {
-  const [pokemon, setPokemon] = useState(null);
 
-  useEffect(() => {
-    fetchData(`/pokemon/${match.params.id}`)
-      .then(data => setPokemon(data))
-      .catch(error => console.error(error));
-  }, [match.params.id]);
-
-  console.log(pokemon);
-
-  if (!pokemon) {
-    return <div>Loading...</div>;
-  }
+  const {pokemon, isLoading, error } = useFetch(match.params.id);
+  
+  if (isLoading) return <div>Loading...</div>;
+  
+  if (error) return <div>{error}</div>;
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '75vh' }}>

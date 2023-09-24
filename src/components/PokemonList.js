@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { fetchData } from '../utils/api';
+import { useState } from 'react';
 import { sortData, filterData } from '../utils/helpers';
 import Filter from './Filter';
 import { List, Card, Pagination } from 'antd';
 import { Link } from 'react-router-dom';
+import useFetch from 'hooks/useFetch';
 
 function PokemonList() {
-  const [pokemon, setPokemon] = useState([]);
   const [filter, setFilter] = useState('');
   const [sort, setSort] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -14,14 +13,14 @@ function PokemonList() {
   const totalPokemons = 1000
   const limit = 20
 
-  useEffect(() => {
-    fetchData(`/pokemon/?limit=${limit}&offset=${currentPage * limit - limit}`)
-      .then((data) => {
-        setPokemon(data.results);
-        console.log(data.results)
-      })
-      .catch((error) => console.error(error));
-  }, [currentPage]);
+  const {pokemon , isLoading, error } = useFetch(`?limit=${limit}&offset=${currentPage * limit - limit}`);
+  
+  if (isLoading) return <div>Loading...</div>;
+  
+  if (error) return <div>{error}</div>;
+
+  const filteredPokemon = filterData(pokemon.results, filter);
+  const sortedPokemon = sortData(filteredPokemon, sort);
 
   const handleFilterChange = (filter) => {
     setFilter(filter);
@@ -34,9 +33,6 @@ function PokemonList() {
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
-
-  const filteredPokemon = filterData(pokemon, filter);
-  const sortedPokemon = sortData(filteredPokemon, sort);
 
   return (
     <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '20px' }}>
