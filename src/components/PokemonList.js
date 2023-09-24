@@ -8,18 +8,16 @@ import useFetch from 'hooks/useFetch';
 function PokemonList() {
   const [filter, setFilter] = useState('');
   const [sort, setSort] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState( localStorage.getItem('page') || 1);
 
-  const totalPokemons = 1000
-  const limit = 20
-
-  const {pokemon , isLoading, error } = useFetch(`?limit=${limit}&offset=${currentPage * limit - limit}`);
+  const {pokemon, isLoading, error } = useFetch(`?limit=1000`);
   
   if (isLoading) return <div>Loading...</div>;
   
   if (error) return <div>{error}</div>;
 
   const filteredPokemon = filterData(pokemon.results, filter);
+
   const sortedPokemon = sortData(filteredPokemon, sort);
 
   const handleFilterChange = (filter) => {
@@ -32,7 +30,12 @@ function PokemonList() {
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
+    localStorage.setItem('page', page);
+
   };
+
+  const limit = 20
+  const displayPokemon = sortedPokemon.slice( (currentPage - 1) * limit, currentPage * limit);
 
   return (
     <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '20px' }}>
@@ -40,7 +43,7 @@ function PokemonList() {
       <List
         style={{ background: '#f5f5f5', borderRadius: '10px', padding: '20px' }}
         grid={{ gutter: 16, column: 4 }}
-        dataSource={sortedPokemon}
+        dataSource={displayPokemon}
         renderItem={(poke) => (
           <List.Item>
             <Link
@@ -59,7 +62,7 @@ function PokemonList() {
         )}
       />
       <Pagination 
-        total={ totalPokemons / limit } 
+        total={ sortedPokemon.length / limit } 
         defaultCurrent={currentPage} 
         pageSize={1} 
         onChange={handlePageChange}
