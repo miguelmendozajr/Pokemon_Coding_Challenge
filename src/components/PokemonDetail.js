@@ -3,7 +3,7 @@ import useFetch from 'hooks/useFetch';
 
 function PokemonDetail({ match }) {
 
-  const {pokemon, isLoading, error } = useFetch(match.params.id);
+  const {pokemon, isLoading, error } = useFetch(`pokemon/${match.params.id}`);
   
   if (isLoading) return <div>Loading...</div>;
   

@@ -3,21 +3,22 @@ import { Input, Select } from 'antd';
 
 const { Option } = Select;
 
-function Filter({ onFilterChange, onSortChange }) {
+function Filter({ onFilterChange, onSortChange, defaultValue }) {
   return (
     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
       <Input 
+        id="pokemonInput"
         placeholder="Filter Pokémon by name" 
-        onChange={(e) => onFilterChange(e.target.value)}
-        style={{ width: '60%' }}
+        onChange={(e) => onFilterChange(e.target.value) }
+        style={{ width: '65%' }}
       />
       <Select 
-        defaultValue="name" 
+        defaultValue={defaultValue} 
         onChange={onSortChange}
         style={{ width: '30%' }}
       >
-        <Option value="name">Name (A-Z)</Option>
-        <Option value="-name">Name (Z-A)</Option>
+        <Option value={false}>Name (A-Z)</Option>
+        <Option value={true}>Name (Z-A)</Option>
       </Select>
     </div>
   );

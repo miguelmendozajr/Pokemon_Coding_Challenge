@@ -7,39 +7,39 @@ import useFetch from 'hooks/useFetch';
 
 function PokemonList() {
   const [filter, setFilter] = useState('');
-  const [sort, setSort] = useState(false);
-  const [currentPage, setCurrentPage] = useState( localStorage.getItem('page') || 1);
-
-  const {pokemon, isLoading, error } = useFetch(`?limit=1000`);
+  const [sort, setSort] = useState( localStorage.getItem('sort')  === "true" ? true : false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const {pokemon, isLoading, error } = useFetch(`pokemon?limit=1292`);
   
   if (isLoading) return <div>Loading...</div>;
   
   if (error) return <div>{error}</div>;
 
-  const filteredPokemon = filterData(pokemon.results, filter);
 
+  const filteredPokemon = filterData(pokemon.results, filter);
   const sortedPokemon = sortData(filteredPokemon, sort);
 
   const handleFilterChange = (filter) => {
+    handlePageChange(1)
     setFilter(filter);
   };
 
   const handleSortChange = () => {
     setSort((prevSort) => !prevSort);
+    localStorage.setItem('sort', !sort);
   };
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    localStorage.setItem('page', page);
-
   };
 
-  const limit = 20
-  const displayPokemon = sortedPokemon.slice( (currentPage - 1) * limit, currentPage * limit);
+  const size = 20;
+
+  const displayPokemon = sortedPokemon.slice( (currentPage - 1) * size, currentPage * size);
 
   return (
     <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '20px' }}>
-      <Filter onFilterChange={handleFilterChange} onSortChange={handleSortChange} />
+      <Filter onFilterChange={handleFilterChange} onSortChange={handleSortChange} defaultValue={sort}/>
       <List
         style={{ background: '#f5f5f5', borderRadius: '10px', padding: '20px' }}
         grid={{ gutter: 16, column: 4 }}
@@ -62,9 +62,10 @@ function PokemonList() {
         )}
       />
       <Pagination 
-        total={ sortedPokemon.length / limit } 
-        defaultCurrent={currentPage} 
-        pageSize={1} 
+        current={currentPage}
+        total={Math.round(filteredPokemon.length)} 
+        showSizeChanger={false}
+        pageSize = {size}    
         onChange={handlePageChange}
       />
     </div>

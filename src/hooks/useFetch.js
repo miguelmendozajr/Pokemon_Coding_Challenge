@@ -20,7 +20,7 @@ function useFetch(url) {
                 };
             }
         }
-        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${url}`);
+        const response = await fetch(`https://pokeapi.co/api/v2/${url}`);
         if (!response.ok) {
           throw new Error(`Error ${response.status}`);
         }
