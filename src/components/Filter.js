@@ -5,17 +5,17 @@ const { Option } = Select;
 
 function Filter({ onFilterChange, onSortChange, defaultValue }) {
   return (
-    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
+    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px', padding: '0 20px' }}>
       <Input 
         id="pokemonInput"
         placeholder="Filter Pokémon by name" 
-        onChange={(e) => onFilterChange(e.target.value) }
-        style={{ width: '65%' }}
+        onChange={(e) => onFilterChange(e.target.value.trim()) }
+        style={{ width: '60%' }}
       />
       <Select 
         defaultValue={defaultValue} 
         onChange={onSortChange}
-        style={{ width: '30%' }}
+        style={{ width: '35%' }}
       >
         <Option value={false}>Name (A-Z)</Option>
         <Option value={true}>Name (Z-A)</Option>

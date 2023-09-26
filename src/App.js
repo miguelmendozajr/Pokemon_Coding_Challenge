@@ -14,11 +14,11 @@ function App() {
       <Layout style={{ minHeight: '100vh' }}>
         <Header style={{ background: 'red', padding: 0 }}>
           <div style={{ display: 'flex', alignItems: 'center', maxWidth: '1200px', margin: '0 auto', padding: '0 20px' }}>
-            <Title style={{ color: '#fff', margin: 12 }} level={2}><Link  to="/" style={{ color: 'inherit', textDecoration: 'none' }}>PokéApp</Link></Title>
+            <Title style={{ color: '#fff', margin: '12px 0 0 38px' }} level={2}><Link  to="/" style={{ color: 'inherit', textDecoration: 'none' }}>PokéApp</Link></Title>
 
           </div>
         </Header>
-        <Content style={{ padding: '20px', maxWidth: '1200px', margin: '0 auto' }}>
+        <Content style={{ padding: '20px', width: '100%', maxWidth: '1200px', margin: '0 auto' }}>
           <Switch>
             <Route exact path="/" component={PokemonList} />
             <Route path="/pokemon/:id" component={PokemonDetail} />

@@ -30,3 +30,13 @@ code {
 .custom-header-menu .ant-menu-item-selected a {
   color: #fff !important; /* Text color */
 }
+
+.ant-card-meta-title {
+  white-space: pre-line ;
+}
+
+@media (max-width: 750px) {
+  .ant-card-meta-title {
+    white-space: pre-line !important ;
+  }
+}
